@@ -1,0 +1,27 @@
+{
+  "name": "skripsi-docker-client",
+  "version": "1.0.0",
+  "description": "minecraft client bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ojan208/skripsi-docker-client.git"
+  },
+  "keywords": [
+    "mineflayer",
+    "minecraft",
+    "bot"
+  ],
+  "author": "fauzan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ojan208/skripsi-docker-client/issues"
+  },
+  "homepage": "https://github.com/ojan208/skripsi-docker-client#readme",
+  "dependencies": {
+    "mineflayer": "^4.25.0"
+  }
+}
