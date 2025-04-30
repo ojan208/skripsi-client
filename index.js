@@ -5,7 +5,7 @@ const { pathfinder, Movements, goals } = require("mineflayer-pathfinder")
 const bot = mineflayer.createBot({
     host: process.env.HOST,
     port: parseInt(process.env.PORT || "25565"),
-    username: "bot_1",
+    username: process.env.BOT_NAME || "bot",
     version: "1.20.1"
 })
 console.log("connecting to " + process.env.HOST + ":" + process.env.PORT)
