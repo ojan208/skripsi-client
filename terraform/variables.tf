@@ -12,24 +12,24 @@ variable "cluster" {
     type = list(object({
         zone = string
         location = string
-        host = string
     }))
 
     default = [
         {
-            zone = "asia-southeast2-a",
+            zone = "asia-southeast2-b",
             location = "jakarta",
-            host = "34.34.220.138"
         }, 
         {
-            zone = "asia-south2-a",
+            zone = "asia-south2-b",
             location = "delhi",
-            host = "34.131.180.233"
         },
         {
-            zone = "asia-northeast1-a",
+            zone = "asia-northeast1-b",
             location = "tokyo",
-            host = "34.146.146.19"
+        },
+        {
+            zone = "asia-east1-b",
+            location = "taiwan",
         },
     ]
 }

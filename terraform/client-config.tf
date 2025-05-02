@@ -11,15 +11,17 @@ resource "google_container_cluster" "gke" {
     for_each = local.cluster_regions
     name = "cluster-${ each.value.location }"
     location = each.value.zone
-    initial_node_count = 5
+    initial_node_count = 4
     release_channel {
-      channel = "stable"
+      channel = "STABLE"
     }
+
+    deletion_protection = false
 
     node_config {
       machine_type = "e2-standard-2"
       tags = [ "minecraft" ]
-      disk_size_gb = 10
+      disk_size_gb = 20
       disk_type = "pd-ssd"
     }
 }
