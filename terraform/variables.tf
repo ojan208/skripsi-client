@@ -23,13 +23,5 @@ variable "cluster" {
             zone = "asia-south2-b",
             location = "delhi",
         },
-        {
-            zone = "asia-northeast1-b",
-            location = "tokyo",
-        },
-        {
-            zone = "asia-east1-b",
-            location = "taiwan",
-        },
     ]
 }
