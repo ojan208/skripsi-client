@@ -11,7 +11,7 @@ resource "google_container_cluster" "gke" {
     for_each = local.cluster_regions
     name = "cluster-${ each.value.location }"
     location = each.value.zone
-    initial_node_count = 4
+    initial_node_count = 3
     release_channel {
       channel = "STABLE"
     }
