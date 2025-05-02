@@ -1,6 +1,6 @@
 variable "project_id" {
     type = string
-    default = "extreme-battery-426200-u1"
+    default = "client-bot-458613"
 }
 
 variable "image" {
