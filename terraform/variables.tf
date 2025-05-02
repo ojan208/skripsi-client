@@ -1,6 +1,6 @@
 variable "project_id" {
     type = string
-    default = "client-bot-458613"
+    default = "client-bot-2"
 }
 
 variable "image" {
@@ -15,14 +15,6 @@ variable "cluster" {
     }))
 
     default = [
-        {
-            zone = "asia-southeast2-b",
-            location = "jakarta",
-        }, 
-        {
-            zone = "asia-south2-b",
-            location = "delhi",
-        },
         {
             zone = "asia-northeast1-b",
             location = "tokyo",
