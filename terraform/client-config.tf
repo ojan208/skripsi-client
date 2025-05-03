@@ -37,6 +37,7 @@ provider "kubernetes" {
 
 resource "kubernetes_deployment" "clients_jakarta" {
   count = 3
+  provider = kubernetes.jakarta
   metadata {
     name = "client-jakarta-${ count.index + 1 }"
   }
@@ -91,6 +92,7 @@ provider "kubernetes" {
 
 resource "kubernetes_deployment" "clients_delhi" {
   count = 3
+  provider = kubernetes.jakarta
   metadata {
     name = "client-delhi-${ count.index + 1 }"
   }
