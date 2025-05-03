@@ -5,7 +5,7 @@ variable "project_id" {
 
 variable "image" {
     type = string
-    default = "asia-southeast2-docker.pkg.dev/extreme-battery-426200-u1/minecraft/minecraft-client"
+    default = "asia-southeast2-docker.pkg.dev/client-bot-2/minecraft/minecraft-client"
 }
 
 variable "cluster" {

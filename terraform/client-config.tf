@@ -30,7 +30,7 @@ data "google_client_config" "default" {}
 
 provider "kubernetes" {
   alias = "tokyo"
-  host = google_container_cluster.gke["tokyo"].endpoint
+  host = "https://${google_container_cluster.gke["tokyo"].endpoint}"
   cluster_ca_certificate = base64decode(google_container_cluster.gke["tokyo"].master_auth[0].cluster_ca_certificate)
   token = data.google_client_config.default.access_token
 }
@@ -85,7 +85,7 @@ resource "kubernetes_deployment" "clients_tokyo" {
 
 provider "kubernetes" {
   alias = "taiwan"
-  host = google_container_cluster.gke["taiwan"].endpoint
+  host = "https://${google_container_cluster.gke["taiwan"].endpoint}"
   cluster_ca_certificate = base64decode(google_container_cluster.gke["taiwan"].master_auth[0].cluster_ca_certificate)
   token = data.google_client_config.default.access_token
 }
