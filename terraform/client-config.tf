@@ -92,7 +92,7 @@ provider "kubernetes" {
 
 resource "kubernetes_deployment" "clients_delhi" {
   count = 3
-  provider = kubernetes.jakarta
+  provider = kubernetes.delhi
   metadata {
     name = "client-delhi-${ count.index + 1 }"
   }
