@@ -1,0 +1,31 @@
+{{- $count := .Values.botCount }}
+
+{{- range $location := .Values.locations }}
+  {{- $host := index $.Values.hosts $location}}
+  {{- range $i, $ := until $count }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client_bot-{{ $location }}-{{ add $i 1 }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: client_bot-{{ $location }}-{{ add $i 1 }}
+  template:
+    metadata:
+      labels:
+        app: client_bot-{{ $location }}-{{ add $i 1 }}
+    spec:
+      containers:
+        - name: minecraft-bot
+          image: asia-southeast2-docker.pkg.dev/extreme-battery-426200-u1/minecraft/minecraft-client
+          env:
+            - name: HOST
+              value: {{ $host }}
+            - name: PORT
+              value: "25565"
+            - name: BOT_NAME
+              value: client_bot-{{ $location }}-{{ add $i 1 }}
+  {{- end }}
+{{- end }}

@@ -25,3 +25,103 @@ resource "google_container_cluster" "gke" {
       disk_type = "pd-ssd"
     }
 }
+
+data "google_client_config" "default" {}
+
+provider "kubernetes" {
+  alias = "tokyo"
+  host = google_container_cluster.gke["tokyo"].endpoint
+  cluster_ca_certificate = base64decode(google_container_cluster.gke["tokyo"].master_auth[0].cluster_ca_certificate)
+  token = data.google_client_config.default.access_token
+}
+
+resource "kubernetes_deployment" "clients_tokyo" {
+  count = 3
+  provider = kubernetes.tokyo
+  metadata {
+    name = "client-tokyo-${ count.index + 1 }"
+  }
+
+  spec {
+    replicas = 1
+
+    template {
+      metadata {
+        labels = {
+          app = "client-tokyo-${ count.index + 1 }"
+        }
+      }
+
+      spec {
+        container {
+          name = "minecraft-bot"
+          image = var.image
+
+          env {
+            name = "HOST"
+            value = local.cluster_regions["tokyo"].host
+          }
+
+          env {
+            name = "PORT"
+            value = "25565"
+          }
+
+          env {
+            name = "BOT_NAME"
+            value = "client-tokyo-${ count.index + 1 }"
+          }
+        }
+      }
+    }
+  }
+}
+
+provider "kubernetes" {
+  alias = "taiwan"
+  host = google_container_cluster.gke["taiwan"].endpoint
+  cluster_ca_certificate = base64decode(google_container_cluster.gke["taiwan"].master_auth[0].cluster_ca_certificate)
+  token = data.google_client_config.default.access_token
+}
+
+resource "kubernetes_deployment" "clients_taiwan" {
+  count = 3
+  provider = kubernetes.taiwan
+  metadata {
+    name = "client-taiwan-${ count.index + 1 }"
+  }
+
+  spec {
+    replicas = 1
+
+    template {
+      metadata {
+        labels = {
+          app = "client-taiwan-${ count.index + 1 }"
+        }
+      }
+
+      spec {
+        container {
+          name = "minecraft-bot"
+          image = var.image
+
+          env {
+            name = "HOST"
+            value = local.cluster_regions["taiwan"].host
+          }
+
+          env {
+            name = "PORT"
+            value = "25565"
+          }
+
+          env {
+            name = "BOT_NAME"
+            value = "client-taiwan-${ count.index + 1 }"
+          }
+        }
+      }
+    }
+  }
+}

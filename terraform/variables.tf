@@ -12,16 +12,19 @@ variable "cluster" {
     type = list(object({
         zone = string
         location = string
+        host = string
     }))
 
     default = [
         {
             zone = "asia-northeast1-b",
             location = "tokyo",
+            host = "template"
         },
         {
             zone = "asia-east1-b",
             location = "taiwan",
+            host = "template"
         },
     ]
 }
