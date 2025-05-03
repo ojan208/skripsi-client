@@ -17,8 +17,8 @@ variable "cluster" {
 
     default = [
         {
-            zone = "asia-northeast1-b",
-            location = "tokyo",
+            zone = "asia-southeast1-b",
+            location = "singapore",
             host = "35.200.115.14"
         },
         {

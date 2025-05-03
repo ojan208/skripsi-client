@@ -29,17 +29,17 @@ resource "google_container_cluster" "gke" {
 data "google_client_config" "default" {}
 
 provider "kubernetes" {
-  alias = "tokyo"
-  host = "https://${google_container_cluster.gke["tokyo"].endpoint}"
-  cluster_ca_certificate = base64decode(google_container_cluster.gke["tokyo"].master_auth[0].cluster_ca_certificate)
+  alias = "singapore"
+  host = "https://${google_container_cluster.gke["singapore"].endpoint}"
+  cluster_ca_certificate = base64decode(google_container_cluster.gke["singapore"].master_auth[0].cluster_ca_certificate)
   token = data.google_client_config.default.access_token
 }
 
-resource "kubernetes_deployment" "clients_tokyo" {
+resource "kubernetes_deployment" "clients_singapore" {
   count = 3
-  provider = kubernetes.tokyo
+  provider = kubernetes.singapore
   metadata {
-    name = "client-tokyo-${ count.index + 1 }"
+    name = "client-singapore-${ count.index + 1 }"
   }
 
   spec {
@@ -47,14 +47,14 @@ resource "kubernetes_deployment" "clients_tokyo" {
 
     selector {
       match_labels = {
-        app = "client-tokyo-${ count.index + 1 }"
+        app = "client-singapore-${ count.index + 1 }"
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "client-tokyo-${ count.index + 1 }"
+          app = "client-singapore-${ count.index + 1 }"
         }
       }
 
@@ -65,7 +65,7 @@ resource "kubernetes_deployment" "clients_tokyo" {
 
           env {
             name = "HOST"
-            value = local.cluster_regions["tokyo"].host
+            value = local.cluster_regions["singapore"].host
           }
 
           env {
@@ -75,7 +75,7 @@ resource "kubernetes_deployment" "clients_tokyo" {
 
           env {
             name = "BOT_NAME"
-            value = "client-tokyo-${ count.index + 1 }"
+            value = "client-singapore-${ count.index + 1 }"
           }
         }
       }
