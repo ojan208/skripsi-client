@@ -45,6 +45,12 @@ resource "kubernetes_deployment" "clients_tokyo" {
   spec {
     replicas = 1
 
+    selector {
+      match_labels = {
+        app = "client-tokyo-${ count.index + 1 }"
+      }
+    }
+
     template {
       metadata {
         labels = {
@@ -93,6 +99,12 @@ resource "kubernetes_deployment" "clients_taiwan" {
 
   spec {
     replicas = 1
+
+    selector {
+      match_labels = {
+        app = "client-taiwan-${ count.index + 1 }"
+      }
+    }
 
     template {
       metadata {

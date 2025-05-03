@@ -19,12 +19,12 @@ variable "cluster" {
         {
             zone = "asia-northeast1-b",
             location = "tokyo",
-            host = "template"
+            host = "35.200.115.14"
         },
         {
             zone = "asia-east1-b",
             location = "taiwan",
-            host = "template"
+            host = "34.80.0.197"
         },
     ]
 }
