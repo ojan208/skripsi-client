@@ -25,3 +25,113 @@ resource "google_container_cluster" "gke" {
       disk_type = "pd-ssd"
     }
 }
+
+data "google_client_config" "default" {}
+
+provider "kubernetes" {
+  alias = "jakarta"
+  host = "https://${google_container_cluster.gke["jakarta"].endpoint}"
+  cluster_ca_certificate = base64decode(google_container_cluster.gke["jakarta"].master_auth[0].cluster_ca_certificate)
+  token = data.google_client_config.default.access_token
+}
+
+resource "kubernetes_deployment" "clients_jakarta" {
+  count = 3
+  metadata {
+    name = "client-jakarta-${ count.index + 1 }"
+  }
+
+  spec {
+    replicas = 1
+
+    selector {
+      match_labels = {
+        app = "client-jakarta-${ count.index + 1 }"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "client-jakarta-${ count.index + 1 }"
+        }
+      }
+
+      spec {
+        container {
+          name = "minecraft-bots"
+          image = var.image
+
+          env {
+            name = "HOST"
+            value = local.cluster_regions["jakarta"].host
+          }
+
+          env {
+            name = "PORT"
+            value = "25565"
+          }
+
+          env {
+            name = "BOT_NAME"
+            value = "client-jakarta-${ count.index + 1 }"
+          }
+        }
+      }
+    }
+  }
+}
+
+provider "kubernetes" {
+  alias = "delhi"
+  host = "https://${google_container_cluster.gke["delhi"].endpoint}"
+  cluster_ca_certificate = base64decode(google_container_cluster.gke["delhi"].master_auth[0].cluster_ca_certificate)
+  token = data.google_client_config.default.access_token
+}
+
+resource "kubernetes_deployment" "clients_delhi" {
+  count = 3
+  metadata {
+    name = "client-delhi-${ count.index + 1 }"
+  }
+
+  spec {
+    replicas = 1
+
+    selector {
+      match_labels = {
+        app = "client-delhi-${ count.index + 1 }"
+      }
+    }
+
+    template {
+      metadata {
+        labels = {
+          app = "client-delhi-${ count.index + 1 }"
+        }
+      }
+
+      spec {
+        container {
+          name = "minecraft-bots"
+          image = var.image
+
+          env {
+            name = "HOST"
+            value = local.cluster_regions["delhi"].host
+          }
+
+          env {
+            name = "PORT"
+            value = "25565"
+          }
+
+          env {
+            name = "BOT_NAME"
+            value = "client-delhi-${ count.index + 1 }"
+          }
+        }
+      }
+    }
+  }
+}
