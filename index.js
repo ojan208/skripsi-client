@@ -2,6 +2,7 @@ require('dotenv').config()
 const mineflayer =require("mineflayer")
 const { pathfinder, Movements, goals } = require("mineflayer-pathfinder")
 
+let isRestarting = false
 function startBot() {
     const bot = mineflayer.createBot({
         host: process.env.HOST,
@@ -43,7 +44,11 @@ function startBot() {
 }
 
 function restartBot() {
+    if(isRestarting) return;
+    isRestarting = true
+
     setTimeout(() => {
+        isRestarting = false
         startBot()
     }, 5000)
 }
