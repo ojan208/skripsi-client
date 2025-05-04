@@ -8,7 +8,7 @@ variable "image" {
     default = "asia-southeast2-docker.pkg.dev/client-bot-2/minecraft/minecraft-client"
 }
 
-variable "cluster" {
+variable "regions" {
     type = list(object({
         zone = string
         location = string
@@ -16,11 +16,6 @@ variable "cluster" {
     }))
 
     default = [
-        {
-            zone = "asia-southeast1-b",
-            location = "singapore",
-            host = "35.200.115.14"
-        },
         {
             zone = "asia-east1-b",
             location = "taiwan",
