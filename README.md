@@ -1,2 +1,2 @@
-# skripsi-docker-client
+# skripsi client
 Membuat client bot untuk menguji deployment server
